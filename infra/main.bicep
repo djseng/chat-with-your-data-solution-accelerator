@@ -1,4 +1,4 @@
-targetScope = 'subscription'
+targetScope = 'resourceGroup'
 
 @minLength(1)
 @maxLength(20)
@@ -291,11 +291,7 @@ var rgName = 'rg-${environmentName}'
 var keyVaultName = 'kv-${resourceToken}'
 
 // Organize resources in a resource group
-resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
-  name: rgName
-  location: location
-  tags: tags
-}
+var rg = resourceGroup(rgName)
 
 // Store secrets in a keyvault
 module keyvault './core/security/keyvault.bicep' = if (useKeyVault || authType == 'rbac') {
